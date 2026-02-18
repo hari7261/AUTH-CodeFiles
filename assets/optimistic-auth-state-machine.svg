@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="520" viewBox="0 0 1080 520">
+  <defs>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 600 16px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 500 13px Arial, sans-serif; fill: #334155; }
+      .box { rx: 14; ry: 14; stroke-width: 2; }
+      .arrow { stroke: #475569; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="520" fill="#f8fafc" />
+  <text x="40" y="52" class="title">Optimistic Authentication State Machine</text>
+  <text x="40" y="78" class="small">Client moves fast with optimistic session; server decides final authority asynchronously.</text>
+
+  <rect class="box" x="70" y="150" width="230" height="110" fill="#dbeafe" stroke="#2563eb" />
+  <text x="185" y="190" text-anchor="middle" class="label">Unauthenticated</text>
+  <text x="185" y="216" text-anchor="middle" class="small">No active session</text>
+
+  <rect class="box" x="385" y="130" width="290" height="150" fill="#fef3c7" stroke="#d97706" />
+  <text x="530" y="175" text-anchor="middle" class="label">Optimistic Pending</text>
+  <text x="530" y="202" text-anchor="middle" class="small">Client treats user as signed in</text>
+  <text x="530" y="224" text-anchor="middle" class="small">Server verification queued/in-flight</text>
+  <text x="530" y="246" text-anchor="middle" class="small">Retry-safe and idempotent checks</text>
+
+  <rect class="box" x="790" y="70" width="230" height="110" fill="#dcfce7" stroke="#16a34a" />
+  <text x="905" y="110" text-anchor="middle" class="label">Active</text>
+  <text x="905" y="136" text-anchor="middle" class="small">Verification successful</text>
+
+  <rect class="box" x="790" y="260" width="230" height="130" fill="#fee2e2" stroke="#dc2626" />
+  <text x="905" y="302" text-anchor="middle" class="label">Rolled Back</text>
+  <text x="905" y="328" text-anchor="middle" class="small">Verification failed / expired</text>
+  <text x="905" y="350" text-anchor="middle" class="small">Client clears provisional state</text>
+
+  <path class="arrow" d="M300 205 L385 205" />
+  <text x="340" y="192" text-anchor="middle" class="small">POST /auth/optimistic-login</text>
+
+  <path class="arrow" d="M675 180 L790 125" />
+  <text x="742" y="142" text-anchor="middle" class="small">verify success</text>
+
+  <path class="arrow" d="M675 235 L790 310" />
+  <text x="742" y="286" text-anchor="middle" class="small">verify failure</text>
+
+  <path class="arrow" d="M905 390 L905 450 L185 450 L185 260" />
+  <text x="545" y="438" text-anchor="middle" class="small">rollback reconciliation and return to signed-out UX</text>
+
+  <rect x="50" y="470" width="980" height="32" fill="#e2e8f0" rx="8" ry="8" />
+  <text x="540" y="491" text-anchor="middle" class="small">Client polls GET /auth/session (or calls POST /auth/verify) to converge on authoritative server status.</text>
+</svg>
